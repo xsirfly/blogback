@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zc.blog.mapper.CommentMapper">
+
+    <select id="findAll">
+      SELECT * FROM comment
+    </select>
+
+    <select id="findCommentByArticleId" resultType="com.zc.blog.domain.Comment">
+        SELECT * FROM comment WHERE article_id = #{articleId}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO comment (article_id, reply_id, content, username, email, time)
+        VALUE (#{articleId}, #{replyId}, #{content}, #{username}, #{email}, current_date())
+    </insert>
+
+    <update id="deleteById">
+         UPDATE comment SET is_del = 1
+         WHERE id = #{id}
+    </update>
+
+    <update id="update">
+        UPDATE comment SET content = #{content}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

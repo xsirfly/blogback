@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zc.blog.mapper.SloganMapper">
+
+    <select id="findAll" resultType="com.zc.blog.domain.Slogan">
+        SELECT * FROM slogan
+    </select>
+
+    <update id="update">
+        UPDATE slogan
+        SET text_prefix = #{textPrefix}, text_suffix = #{textSuffix}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO slogan (text_prefix, text_suffix)
+        VALUE (#{textPrefix}, #{textSuffix})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM slogan
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

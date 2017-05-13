@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: dev
+mybatis:
+  type-aliases-package: com.zc.blog.domain
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml

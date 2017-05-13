@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="60">
+    <Properties>
+        <Property name="LOG_HOME">/opt/logs/blog</Property>
+    </Properties>
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="%5p %d{yyyy-MM-dd HH:mm:ss} %c %L Line %m %n" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="stdout" />
+        </Root>
+        <!--mybatis日志-->
+        <Logger name="com.ibatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="stdout" />
+        </Logger>
+        <Logger name="java.sql" level="DEBUG" additivity="false">
+            <AppenderRef ref="stdout" />
+        </Logger>
+        <!--项目日志-->
+        <Logger name="com.zc.blog" level="DEBUG" additivity="false">
+            <AppenderRef ref="stdout"/>
+        </Logger>
+    </Loggers>
+</Configuration>

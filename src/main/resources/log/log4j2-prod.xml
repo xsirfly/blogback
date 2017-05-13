@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="60">
+    <Properties>
+        <Property name="LOG_HOME">/opt/logs/blog</Property>
+    </Properties>
+    <Appenders>
+
+        <Console name="stdout" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="%5p %d{yyyy-MM-dd HH:mm:ss} %c %L Line %m %n" />
+        </Console>
+
+        <RollingRandomAccessFile name="bloglog"
+                                 immediateFlush="true" fileName="${LOG_HOME}/bloglog.log"
+                                 filePattern="${LOG_HOME}/bloglog-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="%5p %d{yyyy-MM-dd HH:mm:ss} %c %L Line %m %n"/>
+            <Policies>
+                <!--时间策略，每过一天日志进行一次归档-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <!--文件大小策略，当日志文件到达100MB,进行一次归档-->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <!--DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20-->
+            <DefaultRolloverStrategy max="15" />
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="accesslog"
+                                 immediateFlush="true" fileName="${LOG_HOME}/access.log"
+                                 filePattern="${LOG_HOME}/error-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="%5p %d{yyyy-MM-dd HH:mm:ss} %c %L Line %m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="100 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="15" />
+        </RollingRandomAccessFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="bloglog" />
+        </Root>
+        <!--mybatis日志-->
+        <Logger name="com.ibatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="bloglog" />
+        </Logger>
+        <Logger name="java.sql" level="DEBUG" additivity="false">
+            <AppenderRef ref="bloglog" />
+        </Logger>
+        <!--访问日志-->
+        <Logger name="access" level="DEBUG" additivity="false">
+            <AppenderRef ref="accesslog" />
+        </Logger>
+        <!--项目日志-->
+        <Logger name="com.zc.blog" level="DEBUG" additivity="false">
+            <AppenderRef ref="bloglog"/>
+        </Logger>
+    </Loggers>
+</Configuration>
