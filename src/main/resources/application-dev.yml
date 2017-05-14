@@ -9,3 +9,8 @@ spring:
     password: root
 logging:
   config: classpath:log/log4j2-dev.xml
+elasticsearch:
+  domain: localhost
+  port: 9300
+  index: blog
+  type: article

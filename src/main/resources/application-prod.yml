@@ -4,3 +4,6 @@ server:
   port: 80
 logging:
   config: classpath:log/log4j2-prod.xml
+elasticsearch:
+  domain: localhost
+  port: 9300

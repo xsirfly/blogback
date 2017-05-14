@@ -17,7 +17,7 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO article (title, author, date, comments, outline, md, html, tags, category)
         VALUE (#{title}, #{author}, #{date}, #{comments}, #{outline}, #{md}, #{html}, #{tags}, #{category})
     </insert>

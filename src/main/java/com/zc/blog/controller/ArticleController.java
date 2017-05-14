@@ -36,6 +36,7 @@ public class ArticleController {
             article.setHtml(html);
             article.setDate(DateHelper.formatDate(new Date()));
             int rows = articleService.insert(article);
+            articleService.indexEs(article);
             objectNode.put("insert_rows", rows);
         });
     }

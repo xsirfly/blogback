@@ -14,4 +14,6 @@ public interface ArticleService extends BaseService<Article> {
 
     String findArticleHtmlById(int id);
 
+    void indexEs(Article article);
+
 }
